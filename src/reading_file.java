@@ -13,10 +13,8 @@ import java.util.Set;
 
 public class reading_file {
     public static void main(String [] args) throws IOException {
-        int i = 0;
-        int i2 = 0;
-        String name1 = null;
-        String name2 = null;
+        int i = 0, i2 = 0;
+        String name1 = null,name2 = null;
         File is1 =new File("T1.txt");
         File is2 =new File("T2.txt");
         Scanner sc1 = new Scanner(is1);
@@ -26,6 +24,8 @@ public class reading_file {
         Map<Integer, String> Union = new HashMap<Integer, String>();
         Map<Integer, String> inter = new HashMap<Integer, String>(map);
         Map<Integer, String> join = new HashMap<Integer, String>(map);
+        Map<Integer, String> diff = new HashMap<Integer, String>(map);
+        Map<Integer, String> diff2 = new HashMap<Integer, String>(map);
         sc1.nextLine(); 
         sc2.nextLine(); 
 		        while (sc1.hasNext() && sc2.hasNext() && sc1.hasNextInt() && sc2.hasNextInt()) {
@@ -47,7 +47,16 @@ public class reading_file {
 			                if(map2.containsKey(joinEntries.getKey())){
 			                    join.put( joinEntries.getKey(), joinEntries.getValue());
 			                }
-		
+		            }
+			        for (Map.Entry<Integer, String> diffEntries : map.entrySet()) {
+				                if(!map2.containsKey(diffEntries.getKey())){
+				                    diff.put( diffEntries.getKey(), diffEntries.getValue());
+				                } 
+			        }
+				    for (Map.Entry<Integer, String> diffEntries2 : map2.entrySet()) {
+					                if(!map.containsKey(diffEntries2.getKey())){
+					                    diff2.put( diffEntries2.getKey(), diffEntries2.getValue());
+					                }  
 		            }
 		        }
 		        System.out.println("T1 Union T2");
@@ -55,11 +64,16 @@ public class reading_file {
 	            System.out.println("T1 Intersection T2");
 	            System.out.println(inter); 
 	            System.out.println("T1 Join T2");
-	            System.out.println(join); 
+	            System.out.println(join);
+	            System.out.println("T1 diff T2");
+	            System.out.println(diff);
+	            System.out.println("T2 diff T1");
+	            System.out.println(diff2);
             
 
        
 
     }		        
 }
+
 
