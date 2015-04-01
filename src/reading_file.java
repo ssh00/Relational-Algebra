@@ -23,8 +23,9 @@ public class reading_file {
         Scanner sc2 = new Scanner(is2);
         Map<Integer, String> map = new HashMap<Integer, String>();
         Map<Integer, String> map2 = new HashMap<Integer, String>();
-        Map<Integer, String> Union = new HashMap<Integer, String>(map);
-        Map<Integer, String> same = new HashMap<Integer, String>();
+        Map<Integer, String> Union = new HashMap<Integer, String>();
+        Map<Integer, String> inter = new HashMap<Integer, String>(map);
+        Map<Integer, String> join = new HashMap<Integer, String>(map);
         sc1.nextLine(); 
         sc2.nextLine(); 
 		        while (sc1.hasNext() && sc2.hasNext() && sc1.hasNextInt() && sc2.hasNextInt()) {
@@ -35,13 +36,30 @@ public class reading_file {
 		            name2 = sc2.next();
 		            map.put(i, name1);
 		            map2.put(i2, name2);
-		            Union.keySet().retainAll(map2.keySet());
-		            System.out.println(Union);
+		            Union.putAll(map);
+		            Union.putAll(map2);
+		            for (Map.Entry<Integer, String> htEntries : map.entrySet()) {
+		                if(map2.containsKey(htEntries.getKey()) && map2.get(htEntries.getKey()).equals(htEntries.getValue())){
+		                    inter.put( htEntries.getKey(), htEntries.getValue());
+		                }
+		            }
+		            for (Map.Entry<Integer, String> joinEntries : map.entrySet()) {
+			                if(map2.containsKey(joinEntries.getKey())){
+			                    join.put( joinEntries.getKey(), joinEntries.getValue());
+			                }
 		
-		         } 
-		       
+		            }
+		        }
+		        System.out.println("T1 Union T2");
+	            System.out.println(Union);  
+	            System.out.println("T1 Intersection T2");
+	            System.out.println(inter); 
+	            System.out.println("T1 Join T2");
+	            System.out.println(join); 
             
-}
+
        
+
+    }		        
 }
 
